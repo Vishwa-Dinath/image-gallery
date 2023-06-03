@@ -1,0 +1,28 @@
+
+body{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+header{
+  background-color: black;
+}
+#btn-upload{
+  &:hover{
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+#overlay{
+  opacity: 0.9;
+  height: 100%;
+  width: 100%;
+  background-color: #5c636a;
+}
+#drop-zone{
+  width: 50%;
+  height: 60%;
+  border: 8px dotted white;
+}
+
