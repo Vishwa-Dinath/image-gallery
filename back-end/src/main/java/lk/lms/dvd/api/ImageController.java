@@ -38,7 +38,8 @@ public class ImageController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void saveImages(@RequestParam("images")List<Part> imgFiles, UriComponentsBuilder uriComponentsBuilder ) {
+    public List<String> saveImages(@RequestParam("images")List<Part> imgFiles, UriComponentsBuilder uriComponentsBuilder ) {
+        List<String> imgUrlList = new ArrayList<>();
         if (imgFiles != null) {
             String imgDirPath = servletContext.getRealPath("/images");
             for (Part imgFile : imgFiles) {
@@ -47,11 +48,12 @@ public class ImageController {
                     imgFile.write(imgFilePath);
                     UriComponentsBuilder cloneBuilder = uriComponentsBuilder.cloneBuilder();
                     String imgUrl = cloneBuilder.pathSegment("images", imgFile.getSubmittedFileName()).toUriString();
-                    System.out.println(imgUrl);
+                    imgUrlList.add(imgUrl);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
+        return imgUrlList;
     }
 }
