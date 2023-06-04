@@ -2,6 +2,9 @@ package lk.lms.dvd;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration;
+
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -18,5 +21,9 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         return new String[]{"/"};
     }
 
-
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        String osTempDir = System.getProperty("java.io.tmpdir");
+        registration.setMultipartConfig(new MultipartConfigElement(osTempDir));
+    }
 }
