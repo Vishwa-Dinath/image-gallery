@@ -1,7 +1,9 @@
 package lk.lms.dvd;
 
+import lk.lms.dvd.api.CorsFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 
@@ -25,5 +27,10 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         String osTempDir = System.getProperty("java.io.tmpdir");
         registration.setMultipartConfig(new MultipartConfigElement(osTempDir));
+    }
+
+    @Override
+    protected Filter[] getServletFilters() {
+        return new Filter[]{new CorsFilter()};
     }
 }
